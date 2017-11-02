@@ -1,0 +1,10 @@
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\bin\Debug\noughtsAndCrosses.exe.config
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\bin\Debug\noughtsAndCrosses.exe
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\bin\Debug\noughtsAndCrosses.pdb
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\bin\Debug\noughtsAndCrosses.xml
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.vbprojResolveAssemblyReference.cache
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.Resources.resources
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.vbproj.GenerateResource.Cache
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.exe
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.xml
+C:\Users\Alistair\Documents\Visual Studio 2015\Projects\noughtsAndCrosses\noughtsAndCrosses\obj\Debug\noughtsAndCrosses.pdb
