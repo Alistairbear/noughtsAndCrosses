@@ -52,34 +52,34 @@
         Next
         While Not finished
             For i As Integer = 0 To 1
-                Console.WriteLine("player " & i + 1 & "'s turn")
                 updateGameGrid(board)
+                Console.WriteLine("player " & i + 1 & "'s turn")
                 board = placeSymbol(board, symbols(i))
             Next
         End While
     End Sub
 
-    Function pickSymbols(player As Integer) As Char ' the argument in this function is purely asthetic so doesn't matter too much. It's not used for anything other than a console.writeline
-        Dim input As String ' declared as a string to aid with error checking. if a player enters more than one character into a char it would crash but a string wouldn't
+    Function pickSymbols(player As Integer) As Char '                   the argument in this function is purely asthetic so doesn't matter too much. It's not used for anything other than a console.writeline
+        Dim input As String '                                           declared as a string to aid with error checking. if a player enters more than one character into a char it would crash but a string wouldn't
         Do
             Console.WriteLine("please choose a single, unique character symbol to represent player " & player) ' this is what I mean when I say player is purely asthetic because this is the only line that uses it.
             input = Console.ReadLine()
-        Loop Until input.Length = 1 'Keeps looping the input until the string is one character long so can be accepted as a char variable type
-        Return input ' returns the now single character string. This could be problematic. Say input somehow becomes more than one character, the program would crash because a char cannot be more than 1 character
+        Loop Until input.Length = 1 '                                   Keeps looping the input until the string is one character long so can be accepted as a char variable type
+        Return input '                                                  returns the now single character string. This could be problematic. Say input somehow becomes more than one character, the program would crash because a char cannot be more than 1 character
     End Function
 
-    Sub updateGameGrid(grid(,) As Char) ' the fact that grid has no parameters means there could be an index out of range error when the program runs through the loops
-        Console.Clear() ' clearing the console for the new round
-        For i As Integer = 0 To 3 ' bit of a mess here because of zero indexing and the fact that the board would need to be shifted along one place in both x and y
+    Sub updateGameGrid(grid(,) As Char) '                               the fact that grid has no parameters means there could be an index out of range error when the program runs through the loops
+        Console.Clear() '                                               clearing the console for the new round
+        For i As Integer = 0 To 3 '                                     bit of a mess here because of zero indexing and the fact that the board would need to be shifted along one place in both x and y
             For j As Integer = 0 To 3
-                If (i <> 0) And (j = 0) Then 'This is for the first row
-                    Console.Write(i) ' outputting i because i can be different and still meet these parameters
-                ElseIf (i = 0) And (j <> 0) Then ' this is for the first column
-                    Console.Write(j) ' outputting j because j can be different and still meet these parameters
-                ElseIf (i = 0) And (j = 0) Then ' This is for when the first row and the first column cross and so need to be blank
-                    Console.Write(" ") ' a space is used rather than an empty string because an empty string would just not write out anything whereas a space actually produces a blank space.
+                If (i <> 0) And (j = 0) Then '                          This is for the first row
+                    Console.Write(i) '                                  outputting i because i can be different and still meet these parameters
+                ElseIf (i = 0) And (j <> 0) Then '                      this is for the first column
+                    Console.Write(j) '                                  outputting j because j can be different and still meet these parameters
+                ElseIf (i = 0) And (j = 0) Then '                       This is for when the first row and the first column cross and so need to be blank
+                    Console.Write(" ") '                                a space is used rather than an empty string because an empty string would just not write out anything whereas a space actually produces a blank space.
                 Else
-                    Console.Write(grid((i - 1), (j - 1))) ' If not the first row/column then it needs to draw the board, potential error here if i or j are < 1 then program will crash so it's risky but shouldn't break simply due to the parameters of the if statements. Needs to be (i - 1) because, you guessed it, zero indexing
+                    Console.Write(grid((i - 1), (j - 1))) '             If not the first row/column then it needs to draw the board, potential error here if i or j are < 1 then program will crash so it's risky but shouldn't break simply due to the parameters of the if statements. Needs to be (i - 1) because, you guessed it, zero indexing
                 End If
                 Console.Write(" ")
             Next
@@ -87,27 +87,35 @@
         Next
     End Sub
 
-    Function placeSymbol(grid(,) As Char, symbol As Char) As Char(,) ' this function might be better suited as a subprocess because it's only trying to change grid and I believe that's what ByRef is for? can't rememeber. This function has subprocess dysphoria.
-        Dim coordinates(1) As Integer ' coordiantes is an array with 2 elements and is used to store the coordinates of the position that the player wants to place their counter in. The first element is the x coordiante and the second element is the y coordinate just like standard coordinate notation.
-        Dim input As String ' input is used to error check; make sure that the user enters a number without crashing the program
+    Function placeSymbol(grid(,) As Char, symbol As Char) As Char(,) '  this function might be better suited as a subprocess because it's only trying to change grid and I believe that's what ByRef is for? can't rememeber. This function has subprocess dysphoria.
+        Dim coordinates(1) As Integer '                                 coordiantes is an array with 2 elements and is used to store the coordinates of the position that the player wants to place their counter in. The first element is the x coordiante and the second element is the y coordinate just like standard coordinate notation.
+        Dim input As String '                                           input is used to error check; make sure that the user enters a number without crashing the program
+        Dim valid As Boolean = False '                                  used as a flag for error checking with the inputs
+        Dim coordinateNames() As String = {"x", "y"} '                  This is used so that I can loop the coordinate entry while still able to ask for specifically the x or y coordinate.
         Do
-            Do
-                Console.WriteLine("What is the x coordinate of the position you would like to place your counter in?") ' this block (in fact this entire function tbh) is messy and frankly a bit crap so I will probably rewrite this at some point if I feel like it matters enough to be re written
-                input = Console.ReadLine()
-            Loop Until IsNumeric(input) ' inner do loop is used to check whether the input is actually a number
-            coordinates(1) = input
-            coordinates(1) -= 1
-            'the program needs to only accept positive integers within the bounds of the grid, one solution would be more recursive do loops but that's not very elegant.
-            ' maybe a select case (or an if) within a loop? as in select case i. that could be quite nice
-            Do
-                Console.WriteLine("What is the y coordinate of the position you would like to place your counter in?") ' this whole do loop can be seen as an almost identical copy of the do loop directly above this and though that means there is repetition in my code, it is hard code to turn into a loop and doesn't matter a huge amount because it's only repeated once not like 10 times or something
-                input = Console.ReadLine()
-            Loop Until IsNumeric(input)
-            coordinates(0) = input
-            coordinates(0) -= 1
-        Loop Until grid(coordinates(0), coordinates(1)) = "-" ' looping until they enter a position which is empty. unsure whether this would return an index out of range error
+            Console.WriteLine("please make sure the coordinates you enter are valid.")
+            For i As Integer = 0 To 1
+                Do
+                    Console.WriteLine("What is the " & coordinateNames(i) & " coordinate of the position you would like to place your counter in?") ' this is the only line that uses coordinatenames. You can see why I use it presumably? just so that the output to the console makes sense for the user
+                    input = Console.ReadLine()
+                Loop Until IsNumeric(input) '                           inner do loop is used to check whether the input is actually a number
+                coordinates(i) = input '                                setting the coordinate in question to the guaranteed numerical input
+                coordinates(i) -= 1 '                                   dealing with 0 indexing
+                For j As Integer = 0 To grid.GetUpperBound(i)
+                    Select Case coordinates(i) '                        I am quite proud of this solution.
+                        Case j '                                        It loops the select case for each element in the dimension and then sees if the input is within the index bounds and is also an integer. It doesn't reset if it's not correct because that would break the code.
+                            valid = True '                              if the input is an integer with the array bounds then it is valid so valid = true
+                    End Select
+                Next
+            Next
+            If valid Then '                                             only checking if empty if we already know the input is valid because otherwise there is potential for index out of range error
+                If grid(coordinates(1), coordinates(0)) <> "-" Then '   if the position they enter is not empty then their choice is no longer valid
+                    valid = False '                                     it's no longer valid so valid = false obviously
+                End If
+            End If
+        Loop Until valid '                                              looping until their input is valid
 
-        grid(coordinates(0), coordinates(1)) = symbol
+        grid(coordinates(1), coordinates(0)) = symbol
         Return grid
     End Function
 
